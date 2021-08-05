@@ -9,9 +9,15 @@ from PIL import Image
 import io
 import urllib
 
+def contains_file(table, word):
+    if table.where("Title", are.containing(word))!=None:
+        return True
+    else:
+        return False
+
 def search(table, word):
-    if table.where("Title", are.containing(word)):
-        return table.where("Title", are.containing(word)).take(0).column("id").item(0)
+    return table.where("Title", are.containing(word)).take(0).column("id").item(0)
+    
 
 def geturl(id):
         url = 'https://api.artic.edu/api/v1/artworks/' + str(id)
@@ -31,10 +37,13 @@ def app():
     done = st.checkbox("Finished Inputting Word")
 
     if done:
-        id1 = search(all1, word)
-    
-        image_url = geturl(id1)
-        im = Image.open(requests.get(image_url,stream=True).raw)
-        st.image(im)  
+        try:
+            id1 = search(all1, word)
+            image_url = geturl(id1)
+            im = Image.open(requests.get(image_url,stream=True).raw)
+            st.image(im)
+        except IndexError as error:
+            st.title("Sorry, we cannot generate the image, here's a cat pic :D")
+            st.image("IMG_0545.jpg")
 
     
