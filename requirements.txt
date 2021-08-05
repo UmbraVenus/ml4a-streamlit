@@ -1,0 +1,5 @@
+streamlit
+datascience
+pandas
+pillow
+numpy
