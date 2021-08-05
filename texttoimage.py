@@ -26,7 +26,6 @@ def app():
     st.title('Text to Image')
     st.write('Welcome to Text to Image')
     all1 = Table().read_table("chicago.csv")
-    st.write(all1)
     word = st.text_input('Word to Search')
 
     done = st.checkbox("Finished Inputting Word")
