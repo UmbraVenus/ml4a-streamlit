@@ -119,7 +119,6 @@ def song_info(x):
 
 def app():
     st.title('Text to Song')
-    st.title('Text to Song')
     st.write('Welcome to Text to Song')
     
     word = st.text_input('Word to Search')
