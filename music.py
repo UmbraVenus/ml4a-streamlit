@@ -57,14 +57,23 @@ r = r.json()
 
 def get_cover(firstA, firstT, firstS, secA, secT, secS):
   #first image
-  first = network.get_album(firstA, firstT)
-  first_link = requests.get(first.get_cover_image(),stream=True).raw
-  st.image(Image.open(first_link))
+    try:
+        first = network.get_album(firstA, firstT)
+        first_link = requests.get(first.get_cover_image(), stream=True).raw
+        st.write("Artist: ", firstA)
+        st.write("Album title: ", firstT)
+        st.write( " Song name: ", firstS)
+        st.image(Image.open(first_link))
   #second image
-  sec = network.get_album(secA, secT)
-  sec_link = requests.get(sec.get_cover_image(),stream=True).raw
-  st.image(Image.open(sec_link))
-  return
+        sec = network.get_album(secA, secT)
+        sec_link = requests.get(sec.get_cover_image(), stream=True).raw
+        st.write("Artist: ", secA)
+        st.write("Album title: ", secT)
+        st.write( " Song name: ", secS)
+        st.image(Image.open(sec_link))
+    except requests.MissingSchema as error:
+        pass
+    return
 
 def song_info(x):
     search_box=(str(x).split())
@@ -86,7 +95,11 @@ def song_info(x):
         sec_art = str(r['tracks']['items'][1]['artists'][0]['name'])
         sec_title = str(r['tracks']['items'][1]['album']['name'])
         sec_song = str(r['tracks']['items'][1]['name'])
-        get_cover(first_artist, first_title,first_song, sec_art, sec_title, sec_song)
+        first_id = r['tracks']['items'][0]['external_urls']['spotify']
+        st.write(first_id)
+        get_cover(first_artist, first_title, first_song, sec_art, sec_title, sec_song)
+        #st.audio(sp.start_playback(first_id))
+        """
     for ITEM in search_box:
         q1 = 'search?q=OKAY&type=track&market=US&limit=50&offset=20'
         q = q1.replace("OKAY", ITEM)
@@ -101,6 +114,7 @@ def song_info(x):
         sec_title = str(r['tracks']['items'][1]['album']['name'])
         sec_song = str(r['tracks']['items'][1]['name'])
         get_cover(first_artist, first_title,first_song, sec_art, sec_title, sec_song)
+        """
     return
 
 def app():
@@ -118,6 +132,7 @@ def app():
         except KeyError as error:
             st.title("Sorry, we cannot generate the song, here's a cat pic :D")
             st.image("IMG_0545.jpg")
-
-
-
+        except pylast.WSError as error:
+            pass
+        except requests.MissingSchema as error:
+            pass
