@@ -21,7 +21,7 @@ def app():
         with st.form(key="grid_reset"):
             n_cols = st.number_input("Number of columns", 2, 8, 4)
             st.form_submit_button(label="Reset images and layout")
-        with st.beta_expander("About this app"):
+        with st.expander("About this app"):
             st.markdown("It's about deviant art!")
     
     st.title("Choose your favorite Art~")
@@ -40,8 +40,8 @@ def app():
             dalist += [Image.open(response.raw)]
 
     n_rows = 1 + len(dalist) // n_cols
-    rows = [st.beta_container() for _ in range(n_rows)]
-    cols_per_row = [r.beta_columns(n_cols) for r in rows]
+    rows = [st.container() for _ in range(n_rows)]
+    cols_per_row = [r.columns(n_cols) for r in rows]
 
     for image_index, cat_image in enumerate(dalist):
         with rows[image_index // n_cols]:
