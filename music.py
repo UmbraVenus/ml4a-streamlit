@@ -74,7 +74,7 @@ def get_cover(firstA, firstT, firstS, secA, secT, secS):
         st.write("Album title: ", secT)
         st.write( " Song name: ", secS)
         st.image(Image.open(sec_link))
-    except requests.MissingSchema as error:
+    except requests.exceptions.MissingSchema as error:
         pass
     return
 
@@ -117,7 +117,7 @@ def song_info(x):
             sec_title = str(r['tracks']['items'][1]['album']['name'])
             sec_song = str(r['tracks']['items'][1]['name'])
             get_cover(first_artist, first_title, first_song, sec_art, sec_title, sec_song)
-    except requests.MissingSchema as error:
+    except requests.exceptions.MissingSchema as error:
             pass
     return
 
@@ -137,5 +137,5 @@ def app():
             st.image("IMG_0545.jpg")
         except pylast.WSError as error:
             pass
-        except requests.MissingSchema as error:
+        except requests.exceptions.MissingSchema as error:
             pass
