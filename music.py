@@ -12,8 +12,11 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import random
 import os
 
+
 client_id = '754c5f5bc79941429ca9647d51d0960d' #insert your client id
-client_secret = '7372eaa6e4ec4a64a7e65b925ff4cb1c' # insert your client secret id here
+client_secret = '7372eaa6e4ec4a64a7e65b925ff4cb1c'  # insert your client secret id here
+
+
 
 client_credentials_manager = SpotifyClientCredentials(client_id, client_secret)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
@@ -80,41 +83,42 @@ def song_info(x):
     songs1 = []
     songs2 = []
     both = []
-    for ITEM in search_box:
-        q1 = 'search?q=OKAY&type=track&market=US&limit=2&offset=OKAYY'
-        offlim = int(random.randrange(1,500))
-        q2 = q1.replace("OKAYY", str(offlim))
-        q = q2.replace("OKAY", ITEM)
-        r = requests.get(BASE_URL + q, headers=headers)
-        r = r.json()
-        first_artist = str(r['tracks']['items'][0]['artists'][0]['name'])
-        first_title = str(r['tracks']['items'][0]['album']['name'])
-        first_song = str(r['tracks']['items'][0]['name'])
-        first = network.get_album(first_artist, first_title)
-        link_tofirst= first.get_cover_image()
-        sec_art = str(r['tracks']['items'][1]['artists'][0]['name'])
-        sec_title = str(r['tracks']['items'][1]['album']['name'])
-        sec_song = str(r['tracks']['items'][1]['name'])
-        first_id = r['tracks']['items'][0]['external_urls']['spotify']
-        st.write(first_id)
-        get_cover(first_artist, first_title, first_song, sec_art, sec_title, sec_song)
-        #st.audio(sp.start_playback(first_id))
-        """
-    for ITEM in search_box:
-        q1 = 'search?q=OKAY&type=track&market=US&limit=50&offset=20'
-        q = q1.replace("OKAY", ITEM)
-        r = requests.get(BASE_URL + q, headers=headers)
-        r = r.json()
-        first_artist = str(r['tracks']['items'][0]['artists'][0]['name'])
-        first_title = str(r['tracks']['items'][0]['album']['name'])
-        first_song = str(r['tracks']['items'][0]['name'])
-        first = network.get_album(first_artist, first_title)
-        link_tofirst= first.get_cover_image()
-        sec_art = str(r['tracks']['items'][1]['artists'][0]['name'])
-        sec_title = str(r['tracks']['items'][1]['album']['name'])
-        sec_song = str(r['tracks']['items'][1]['name'])
-        get_cover(first_artist, first_title,first_song, sec_art, sec_title, sec_song)
-        """
+    try:
+        for ITEM in search_box:
+            q1 = 'search?q=OKAY&type=track&market=US&limit=2&offset=OKAYY'
+            offlim = int(random.randrange(1,500))
+            q2 = q1.replace("OKAYY", str(offlim))
+            q = q2.replace("OKAY", ITEM)
+            r = requests.get(BASE_URL + q, headers=headers)
+            r = r.json()
+            first_artist = str(r['tracks']['items'][0]['artists'][0]['name'])
+            first_title = str(r['tracks']['items'][0]['album']['name'])
+            first_song = str(r['tracks']['items'][0]['name'])
+            first = network.get_album(first_artist, first_title)
+            link_tofirst= first.get_cover_image()
+            sec_art = str(r['tracks']['items'][1]['artists'][0]['name'])
+            sec_title = str(r['tracks']['items'][1]['album']['name'])
+            sec_song = str(r['tracks']['items'][1]['name'])
+            first_id = r['tracks']['items'][0]['external_urls']['spotify']
+            st.write(first_id)
+            get_cover(first_artist, first_title, first_song, sec_art, sec_title, sec_song)
+            #st.audio(sp.start_playback(first_id))
+        for ITEM in search_box:
+            q1 = 'search?q=OKAY&type=track&market=US&limit=50&offset=20'
+            q = q1.replace("OKAY", ITEM)
+            r = requests.get(BASE_URL + q, headers=headers)
+            r = r.json()
+            first_artist = str(r['tracks']['items'][0]['artists'][0]['name'])
+            first_title = str(r['tracks']['items'][0]['album']['name'])
+            first_song = str(r['tracks']['items'][0]['name'])
+            first = network.get_album(first_artist, first_title)
+            link_tofirst= first.get_cover_image()
+            sec_art = str(r['tracks']['items'][1]['artists'][0]['name'])
+            sec_title = str(r['tracks']['items'][1]['album']['name'])
+            sec_song = str(r['tracks']['items'][1]['name'])
+            get_cover(first_artist, first_title, first_song, sec_art, sec_title, sec_song)
+    except requests.MissingSchema as error:
+            pass
     return
 
 def app():
