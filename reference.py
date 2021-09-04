@@ -1,12 +1,7 @@
 import streamlit as st
 
 def app(): 
-    text = '''
-    Authors: Sage Ren
-
-    ---
-
-    Contributions: Maya
-    '''
-
-    st.markdown(text)
+    st.title("Authors")
+    st.header("Sage Ren")
+    st.markdown("---")
+    st.caption("All rights reserved @Sage Ren 2021")

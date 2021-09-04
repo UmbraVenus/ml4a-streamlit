@@ -4,7 +4,4 @@ deviantart
 pandas
 pillow
 numpy
-ipywidgets
-spotipy
-pylast
-librespot
+scipy

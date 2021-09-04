@@ -1,0 +1,23 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-weight: 800;
+}
+p,
+ol,
+ul,
+dl,
+li {
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-size: 16pt !important;
+}
+div {
+	padding-bottom: 5pt;
+}
+.donate {
+	padding-left: 50pt;
+}

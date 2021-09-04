@@ -1,4 +1,3 @@
-
 """Frameworks for running multiple Streamlit applications as a single app.
 """
 import streamlit as st
@@ -41,8 +40,12 @@ class MultiApp:
 
     def run(self):
         app = st.sidebar.radio(
-            'Go To',
+            'Navigation',
             self.apps,
-            format_func=lambda app: app['title'])
+            format_func=lambda app: app['title'],
+        )
+
+        
+        
 
         app['function']()
